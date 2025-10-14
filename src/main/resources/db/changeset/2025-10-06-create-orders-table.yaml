@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: create
+      author: Aliaksandr Siamchonak
+      changes:
+        - createSequence:
+            sequenceName: orders_seq
+            startValue: 1
+            incrementBy: 1
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(50)
+              - column:
+                  name: creation_date
+                  type: datetime
+        - createIndex:
+            indexName: idx_users_id
+            tableName: orders
+            columns:
+              - column:
+                  name: user_id
