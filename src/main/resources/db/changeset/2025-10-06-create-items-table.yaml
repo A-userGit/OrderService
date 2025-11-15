@@ -22,7 +22,7 @@ databaseChangeLog:
                   type: varchar(255)
               - column:
                   name: price
-                  type: bigint
+                  type: double
               - column:
                   name: deleted
                   type: BOOLEAN

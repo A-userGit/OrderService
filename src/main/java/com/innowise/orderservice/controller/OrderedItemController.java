@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderedItemController {
 
   private final OrderedItemService orderedItemService;
-  private final OrderService orderService;
 
   @PatchMapping("update")
   ResponseEntity<OrderedItemDto> updateOrderedItem(@Valid @RequestBody UpdateOrderedItemDto data) {

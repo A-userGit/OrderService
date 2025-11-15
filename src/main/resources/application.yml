@@ -27,12 +27,15 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         show-sql: true
+  kafka:
+    bootstrap-servers: http://kafka:9092
+    trusted-packages: com.innowise.external.dto.kafka
 
 springdoc:
   swagger-ui:
     csrf:
       enabled: true
-swagger-server: http://localhost:8083/
+swagger-server: http://order-service:8083/
 feign:
   user:
     service:
@@ -41,3 +44,8 @@ feign:
       info-endpoint: user/by-email
       name: user-service
       port: 8080
+
+kafka:
+  topic:
+    payment-result-topic: payment.result.msg
+    order-created-topic: order.created.msg

@@ -11,10 +11,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CreateOrderDto {
-
-  @Email
   private String email;
-  private HashMap<@LongValid String, Integer> items;
+  private HashMap<Long, Integer> items;
 
   public CreateOrderDto() {
     items = new HashMap<>();

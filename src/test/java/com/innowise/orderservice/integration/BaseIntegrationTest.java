@@ -1,7 +1,6 @@
 package com.innowise.orderservice.integration;
 
 import com.innowise.orderservice.OrderServiceApplication;
-import com.innowise.orderservice.integration.config.WireMockConfig;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import no.nav.security.mock.oauth2.MockOAuth2Server;
@@ -12,6 +11,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.kafka.KafkaContainer;
 import org.testcontainers.utility.DockerImageName;
 
 @Sql(
@@ -24,10 +24,15 @@ public abstract class BaseIntegrationTest {
   private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
       DockerImageName.parse("postgres:latest")).withReuse(true);
 
-  private static MockOAuth2Server server;
+  @Container
+  private static KafkaContainer kafka = new KafkaContainer(
+      DockerImageName.parse("apache/kafka"));
+
+  private final static MockOAuth2Server server;
 
   static {
     postgres.start();
+    kafka.start();
     InetAddress authHost = null;
     try {
       authHost = InetAddress.getByName("auth-service");
@@ -38,6 +43,8 @@ public abstract class BaseIntegrationTest {
     server.start(authHost, 8082);
   }
 
+  protected String kafkaBootstrap = kafka.getBootstrapServers();
+
   @DynamicPropertySource
   static void registerDBProperties(DynamicPropertyRegistry propertyRegistry) {
     propertyRegistry.add("integration-tests-db", postgres::getDatabaseName);
@@ -46,7 +53,8 @@ public abstract class BaseIntegrationTest {
     propertyRegistry.add("spring.datasource.url", postgres::getJdbcUrl);
     propertyRegistry.add("spring.security.oauth2.resourceserver.jwt.issuer-uri",
         () -> server.issuerUrl(".well-known/openid-configuration").toString());
-    propertyRegistry.add("spring.security.oauth2.client.provider.my-oidc-provider.issuer-uri",
-        () -> server.issuerUrl(".well-known/openid-configuration").toString());
+    propertyRegistry.add("spring.kafka.bootstrap-servers", kafka::getBootstrapServers);
+    propertyRegistry.add("spring.kafka.consumer.properties.spring.json.trusted.packages",
+        () -> "com.innowise.external.dto.kafka");
   }
 }

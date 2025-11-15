@@ -1,6 +1,5 @@
 package com.innowise.orderservice.unit.service.impl;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
@@ -16,6 +15,7 @@ import com.innowise.orderservice.entity.Item;
 import com.innowise.orderservice.entity.Order;
 import com.innowise.orderservice.enums.OrderStatus;
 import com.innowise.orderservice.exception.ObjectNotFoundException;
+import com.innowise.orderservice.kafka.CreateOrderProducer;
 import com.innowise.orderservice.service.ItemService;
 import com.innowise.orderservice.service.OrderService;
 import com.innowise.orderservice.service.OrderedItemService;
@@ -45,6 +45,8 @@ public class CreateOrderServiceImplUnitTest {
   private OrderedItemService orderedItemService;
   @Mock
   private UserInfoFeignClient feignClient;
+  @Mock
+  private CreateOrderProducer createOrderProducer;
 
   @InjectMocks
   private CreateOrderServiceImpl createOrderService;
@@ -65,8 +67,8 @@ public class CreateOrderServiceImplUnitTest {
   @DisplayName("Test add order with item that doesn't exist")
   public void addOrderNoItemTest() {
     UserDto user = new UserDto(1, "test", "testS");
-    HashMap<String, Integer> items = new HashMap<>();
-    items.put("1", 10);
+    HashMap<Long, Integer> items = new HashMap<>();
+    items.put(1L, 10);
     when(feignClient.getUserInfoFromUserService(any(String.class))).thenReturn(
         new ResponseEntity<>(
             user, HttpStatusCode.valueOf(404)));
@@ -83,8 +85,8 @@ public class CreateOrderServiceImplUnitTest {
     UserDto user = new UserDto(1, "test", "testS");
     List<Item> items = new ArrayList<>();
     items.add(new Item(1, "testI", 1200, false));
-    HashMap<String, Integer> itemIds = new HashMap<>();
-    itemIds.put("1", 10);
+    HashMap<Long, Integer> itemIds = new HashMap<>();
+    itemIds.put(1L, 10);
     CreateOrderDto createOrderDto = new CreateOrderDto("test@mail.com", itemIds);
     Order order = new Order(1, 1, OrderStatus.CREATED, LocalDateTime.now(), new ArrayList<>());
     when(feignClient.getUserInfoFromUserService(any(String.class))).thenReturn(

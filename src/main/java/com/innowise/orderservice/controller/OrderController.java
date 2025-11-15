@@ -1,10 +1,12 @@
 package com.innowise.orderservice.controller;
 
 import com.innowise.orderservice.dto.CreateOrderDto;
+import com.innowise.orderservice.dto.CreateOrderRequestDto;
 import com.innowise.orderservice.dto.CreateOrderedItemDto;
 import com.innowise.orderservice.dto.OrderDto;
 import com.innowise.orderservice.dto.UpdateOrderDto;
 import com.innowise.orderservice.enums.OrderStatus;
+import com.innowise.orderservice.mapper.CreateOrderRequestMapper;
 import com.innowise.orderservice.service.CreateOrderService;
 import com.innowise.orderservice.service.OrderService;
 import com.innowise.orderservice.validation.annotation.EnumValid;
@@ -31,9 +33,11 @@ public class OrderController {
 
   private final CreateOrderService createOrderService;
   private final OrderService orderService;
+  private final CreateOrderRequestMapper mapper;
 
   @PostMapping("create")
-  ResponseEntity<OrderDto> createOrder(@Valid @RequestBody CreateOrderDto createOrderDto) {
+  ResponseEntity<OrderDto> createOrder(@Valid @RequestBody CreateOrderRequestDto createOrderRequestDto) {
+    CreateOrderDto createOrderDto = mapper.toCreateOrderDto(createOrderRequestDto);
     OrderDto createdOrder = createOrderService.addOrder(createOrderDto);
     return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
   }

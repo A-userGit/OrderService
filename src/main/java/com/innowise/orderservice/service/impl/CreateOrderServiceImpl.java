@@ -5,10 +5,12 @@ import com.innowise.orderservice.dto.CreateOrderDto;
 import com.innowise.orderservice.dto.CreateOrderedItemDto;
 import com.innowise.orderservice.dto.OrderDto;
 import com.innowise.orderservice.dto.external.UserDto;
+import com.innowise.external.dto.kafka.CreatePaymentDto;
 import com.innowise.orderservice.entity.Item;
 import com.innowise.orderservice.entity.Order;
 import com.innowise.orderservice.entity.OrderedItem;
 import com.innowise.orderservice.exception.ObjectNotFoundException;
+import com.innowise.orderservice.kafka.CreateOrderProducer;
 import com.innowise.orderservice.service.CreateOrderService;
 import com.innowise.orderservice.service.ItemService;
 import com.innowise.orderservice.service.OrderService;
@@ -32,6 +34,7 @@ public class CreateOrderServiceImpl implements CreateOrderService {
   private final ItemService itemService;
   private final OrderedItemService orderedItemService;
   private final UserInfoFeignClient feignClient;
+  private final CreateOrderProducer createOrderProducer;
 
   @Override
   @Transactional
@@ -46,10 +49,11 @@ public class CreateOrderServiceImpl implements CreateOrderService {
     Order order = orderService.createOrder(createOrderDto, id);
     Map<Item, Integer> itemsToOrder = new HashMap<>();
     for (Item item : activeItemsByIds) {
-      itemsToOrder.put(item, createOrderDto.getItems().get(String.valueOf(item.getId())));
+      itemsToOrder.put(item, createOrderDto.getItems().get(item.getId()));
     }
     List<OrderedItem> orderedItems = orderedItemService.createOrderedItems(itemsToOrder, order);
     order.setItems(new ArrayList<>(orderedItems));
+    sendPaymentRequest(order, orderedItems);
     return orderService.updateOrder(order);
   }
 
@@ -66,14 +70,21 @@ public class CreateOrderServiceImpl implements CreateOrderService {
 
   private List<Item> getItemsForOrder(CreateOrderDto createOrderDto) {
     List<Item> activeItemsByIds = itemService.getActiveDBItemsByIds(
-        createOrderDto.getItems().keySet().stream().map(Long::parseLong).toList());
+        createOrderDto.getItems().keySet().stream().toList());
     if (activeItemsByIds.size() != createOrderDto.getItems().size()) {
       createOrderDto.getItems().keySet()
-          .removeAll(activeItemsByIds.stream().map(key -> String.valueOf(key.getId())).collect(
+          .removeAll(activeItemsByIds.stream().map(Item::getId).collect(
               Collectors.toSet()));
       throw ObjectNotFoundException.entitiesNotFound("item", "id",
           Arrays.asList(createOrderDto.getItems().keySet().toArray()));
     }
     return activeItemsByIds;
+  }
+
+  private void sendPaymentRequest(Order order, List<OrderedItem> items) {
+    double sum = items.stream().mapToDouble(item -> item.getQuantity() * item.getItem().getPrice())
+        .sum();
+    CreatePaymentDto paymentDto = new CreatePaymentDto(order.getUserId(), order.getId(), sum);
+    createOrderProducer.sendMessage(paymentDto);
   }
 }

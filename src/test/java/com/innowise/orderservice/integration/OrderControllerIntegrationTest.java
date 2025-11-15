@@ -2,6 +2,7 @@ package com.innowise.orderservice.integration;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -13,14 +14,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
+import com.innowise.orderservice.config.kafka.KafkaTopicProperties;
 import com.innowise.orderservice.dto.CreateOrderDto;
+import com.innowise.orderservice.dto.CreateOrderRequestDto;
 import com.innowise.orderservice.dto.CreateOrderedItemDto;
+import com.innowise.orderservice.dto.OrderItemRequestDto;
 import com.innowise.orderservice.dto.UpdateOrderDto;
 import com.innowise.orderservice.dto.external.UserDto;
+import com.innowise.external.dto.kafka.CreatePaymentDto;
 import com.innowise.orderservice.enums.OrderStatus;
 import com.innowise.orderservice.integration.config.WireMockProperties;
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.StringDeserializer;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +41,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.kafka.support.serializer.JacksonJsonDeserializer;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -44,6 +58,9 @@ public class OrderControllerIntegrationTest extends BaseIntegrationTest {
 
   @Autowired
   WireMockProperties wireMockProperties;
+
+  @Autowired
+  KafkaTopicProperties kafkaTopicProperties;
 
   @Test
   @WithMockUser
@@ -88,14 +105,16 @@ public class OrderControllerIntegrationTest extends BaseIntegrationTest {
       server.start();
       WireMock.configureFor(wireMockProperties.getName(), wireMockProperties.getPort());
       setupMockFeign();
-      CreateOrderDto order = new CreateOrderDto();
+      CreateOrderRequestDto order = new CreateOrderRequestDto();
       order.setEmail("test@mail.com");
-      HashMap<String, Integer> items = new HashMap<>();
-      items.put("-1", 10);
-      items.put("-2", 12);
+      List<OrderItemRequestDto> items = new ArrayList<>();
+      items.add(new OrderItemRequestDto(-1,10));
+      items.add(new OrderItemRequestDto(-2,12));
       order.setItems(items);
       ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
       String orderJSON = ow.writeValueAsString(order);
+      KafkaConsumer<String, CreatePaymentDto> consumer = getKafkaConsumer();
+      consumer.subscribe(List.of(kafkaTopicProperties.getOrderCreatedTopic()));
       mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/orders/create")
               .with(csrf())
               .content(orderJSON)
@@ -103,6 +122,10 @@ public class OrderControllerIntegrationTest extends BaseIntegrationTest {
           .andExpect(status().isCreated())
           .andExpect(jsonPath("$.id").value(1))
           .andExpect(jsonPath("$.userId").value(1));
+      ConsumerRecords<String, CreatePaymentDto> records = consumer.poll(Duration.ofSeconds(60));
+      assertEquals(1, records.count());
+      assertEquals(27148.0, records.iterator().next().value().getPaymentAmount());
+      String s= records.iterator().next().value().toString();
     } catch (Exception e) {
       fail("Exception during order create mvc test " + e.getMessage());
     } finally {
@@ -110,6 +133,19 @@ public class OrderControllerIntegrationTest extends BaseIntegrationTest {
         server.stop();
       }
     }
+  }
+
+  @NotNull
+  private KafkaConsumer<String, CreatePaymentDto> getKafkaConsumer() {
+    Properties consumerProps = new Properties();
+    consumerProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaBootstrap);
+    consumerProps.put(ConsumerConfig.GROUP_ID_CONFIG, "group-1");
+    consumerProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+    consumerProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+    consumerProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JacksonJsonDeserializer.class.getName());
+    consumerProps.put(JacksonJsonDeserializer.TRUSTED_PACKAGES, "com.innowise.external.dto.kafka");
+    KafkaConsumer<String, CreatePaymentDto> consumer = new KafkaConsumer<>(consumerProps);
+    return consumer;
   }
 
   @Test
@@ -199,3 +235,5 @@ public class OrderControllerIntegrationTest extends BaseIntegrationTest {
             .withBody(userJSON)));
   }
 }
+
+
