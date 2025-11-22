@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: create
+      author: Aliaksandr Siamchonak
+      changes:
+        - createSequence:
+            sequenceName: ordered_item_seq
+            startValue: 1
+            incrementBy: 1
+        - createTable:
+            tableName: order_items
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: item_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: int
+                  defaultValue: 0
+        - addForeignKeyConstraint:
+            baseTableName: order_items
+            baseColumnNames: item_id
+            constraintName: fk_ordered_item
+            referencedTableName: items
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: order_items
+            baseColumnNames: order_id
+            constraintName: fk_base_order
+            referencedTableName: orders
+            referencedColumnNames: id
+            onDelete: CASCADE
