@@ -56,5 +56,9 @@ public abstract class BaseIntegrationTest {
     propertyRegistry.add("spring.kafka.bootstrap-servers", kafka::getBootstrapServers);
     propertyRegistry.add("spring.kafka.consumer.properties.spring.json.trusted.packages",
         () -> "com.innowise.external.dto.kafka");
+    propertyRegistry.add("feign.user.service.url", ()->"http://user-service:8080/api/v1/users/");
+    propertyRegistry.add("feign.user.service.port", ()->"8080");
+    propertyRegistry.add("spring.security.oauth2.resourceserver.jwt.jwk-set-uri",
+        () -> "http://auth-service:8082/oauth2/jwks");
   }
 }
