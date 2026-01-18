@@ -49,3 +49,18 @@ kafka:
   topic:
     payment-result-topic: payment.result.msg
     order-created-topic: order.created.msg
+
+otel:
+  traces:
+    sampler: always_on
+  exporter:
+    otlp:
+      traces:
+        endpoint: http://otel-collector.monitoring.svc.cluster.local:4317
+        protocol: grpc
+      metrics:
+        endpoint: http://otel-collector.monitoring.svc.cluster.local:4317
+        protocol: grpc
+      logs:
+        endpoint: http://otel-collector.monitoring.svc.cluster.local:4317
+        protocol: grpc
