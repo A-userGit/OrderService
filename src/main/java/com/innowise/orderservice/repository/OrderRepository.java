@@ -13,4 +13,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
   @Query(value = "from orders as o where o.status in :statuses")
   List<Order> getByStatuses(@Param("statuses") List<OrderStatus> statuses);
+
+  @Query(value = "from orders as o where o.userId = :userId")
+  List<Order> getByUserId(@Param("userId") long id);
 }

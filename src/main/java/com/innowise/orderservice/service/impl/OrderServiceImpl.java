@@ -1,8 +1,10 @@
 package com.innowise.orderservice.service.impl;
 
+import com.innowise.orderservice.config.feign.UserInfoFeignClient;
 import com.innowise.orderservice.dto.CreateOrderDto;
 import com.innowise.orderservice.dto.OrderDto;
 import com.innowise.orderservice.dto.UpdateOrderDto;
+import com.innowise.orderservice.dto.external.UserDto;
 import com.innowise.orderservice.entity.Order;
 import com.innowise.orderservice.enums.OrderStatus;
 import com.innowise.orderservice.exception.ObjectNotFoundException;
@@ -14,7 +16,9 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.jpa.repository.Lock;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,6 +28,7 @@ public class OrderServiceImpl implements OrderService {
   private final static String OBJECT_NAME = "order";
   private final OrderRepository orderRepository;
   private final OrderMapper mapper;
+  private final UserInfoFeignClient userInfoFeignClient;
 
   @Override
   @Transactional
@@ -86,5 +91,15 @@ public class OrderServiceImpl implements OrderService {
   public List<OrderDto> getOrdersByStatuses(List<String> statuses) {
     List<OrderStatus> orderStatuses = statuses.stream().map(OrderStatus::valueOf).toList();
     return orderRepository.getByStatuses(orderStatuses).stream().map(mapper::toOrderDto).toList();
+  }
+
+  @Override
+  public List<OrderDto> getOrdersForUser(String email) {
+    ResponseEntity<UserDto> userInfoFromUserService = userInfoFeignClient.getUserInfoFromUserService(email);
+    if (userInfoFromUserService.getBody() == null) {
+      throw ObjectNotFoundException.entityNotFound("User", "email", email);
+    }
+    return orderRepository.getByUserId(userInfoFromUserService.getBody().getId())
+            .stream().map(mapper::toOrderDto).toList();
   }
 }

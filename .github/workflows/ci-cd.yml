@@ -8,6 +8,8 @@ on:
     types: [ opened, synchronize, reopened ]
 permissions:
   contents: write
+env:
+  SPRING_PROFILE: test
 jobs:
   build:
     name: Compile and build

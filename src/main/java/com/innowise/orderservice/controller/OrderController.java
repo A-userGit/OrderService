@@ -9,6 +9,7 @@ import com.innowise.orderservice.enums.OrderStatus;
 import com.innowise.orderservice.mapper.CreateOrderRequestMapper;
 import com.innowise.orderservice.service.CreateOrderService;
 import com.innowise.orderservice.service.OrderService;
+import com.innowise.orderservice.util.SecurityUtil;
 import com.innowise.orderservice.validation.annotation.EnumValid;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -16,6 +17,11 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -52,6 +58,13 @@ public class OrderController {
   ResponseEntity<OrderDto> getById(@RequestParam(name = "id") Long id) {
     OrderDto orderById = orderService.getById(id);
     return new ResponseEntity<>(orderById, HttpStatus.OK);
+  }
+
+  @GetMapping("user/current")
+  ResponseEntity<List<OrderDto>> getAllForCurrentUser() {
+    String userEmail = SecurityUtil.getAuthenticatedUserEmail();
+    List<OrderDto> ordersByUser = orderService.getOrdersForUser(userEmail);
+    return new ResponseEntity<>(ordersByUser, HttpStatus.OK);
   }
 
   @PostMapping("search")

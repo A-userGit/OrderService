@@ -12,6 +12,8 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -77,5 +79,10 @@ public class ItemServiceImpl implements ItemService {
       throw ObjectNotFoundException.entityNotFound("active item", "id", id);
     }
     return byId.get();
+  }
+
+  @Override
+  public List<ItemDto> getItemsByAvailability(boolean isDeleted) {
+    return itemRepository.findAllByAvailability(isDeleted).stream().map(mapper::toItemDto).toList();
   }
 }
