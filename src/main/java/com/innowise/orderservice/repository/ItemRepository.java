@@ -19,4 +19,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
   @Query("from items as i where i.id = :id and i.deleted = false")
   Optional<Item> findActiveById(@Param("id") Long id);
+
+  @Query("from items as i where i.deleted = :isDeleted")
+  List<Item> findAllByAvailability(@Param("isDeleted") boolean isDeleted);
 }
