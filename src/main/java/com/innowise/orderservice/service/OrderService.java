@@ -24,4 +24,6 @@ public interface OrderService {
 
   List<OrderDto> getOrdersByStatuses(List<String> statuses);
 
+  List<OrderDto> getOrdersForUser(String email);
+
 }

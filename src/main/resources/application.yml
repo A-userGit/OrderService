@@ -1,18 +1,18 @@
 server:
-  port: 80
+  port: ${PORT}
 spring:
   application:
     name: order-service
-    port: 80
+    port: ${PORT}
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://auth-service
-          jwk-set-uri: http://auth-service/oauth2/jwks
+          issuer-uri: ${AUTH_ISSUER}
+          jwk-set-uri: ${AUTH_JWKS}
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://postgres:5432/order_service
+    url: jdbc:postgresql://${DB_HOST}:5432/order_service
     username: admin
     password: admin
   liquibase:
@@ -28,8 +28,10 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         show-sql: true
   kafka:
-    bootstrap-servers: http://kafka:9092
+    bootstrap-servers: http://${KAFKA_HOST}:9092
     trusted-packages: com.innowise.external.dto.kafka
+  profiles:
+    default: ${SPRING_PROFILE}
 
 springdoc:
   swagger-ui:
@@ -40,10 +42,10 @@ feign:
   user:
     service:
       mock: /api/v1/users/user/by-email.*
-      url: http://user-service/api/v1/users/
+      url: http://${USER_SERVICE_ADDR}/api/v1/users/
       info-endpoint: user/by-email
       name: user-service
-      port: 80
+      port: ${USER_SERVICE_MOCK_PORT}
 
 kafka:
   topic:

@@ -20,4 +20,6 @@ public interface ItemService {
   ItemDto getActiveById(long id);
 
   Item getActiveDBById(long id);
+
+  List<ItemDto> getItemsByAvailability(boolean isDeleted);
 }

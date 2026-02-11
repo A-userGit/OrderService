@@ -32,6 +32,12 @@ public class ItemController {
     return new ResponseEntity<>(createdItem, HttpStatus.CREATED);
   }
 
+  @GetMapping("all/available")
+  ResponseEntity<List<ItemDto>> getAllAvailableItems() {
+    List<ItemDto> availableItems = itemService.getItemsByAvailability(false);
+    return new ResponseEntity<>(availableItems, HttpStatus.OK);
+  }
+
   @PatchMapping("update")
   ResponseEntity<ItemDto> updateItem(@Valid @RequestBody ItemDto data) {
     ItemDto item = itemService.updateItem(data);
