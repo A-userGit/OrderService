@@ -1,6 +1,6 @@
-package com.innowise.external.dto.kafka;
+package com.shop.external.dto.kafka;
 
-import com.innowise.orderservice.enums.PaymentStatus;
+import com.shop.orderservice.enums.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

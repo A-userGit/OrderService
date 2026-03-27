@@ -1,4 +1,4 @@
-package com.innowise.orderservice.dto.external;
+package com.shop.orderservice.dto.external;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,7 +1,7 @@
-package com.innowise.orderservice.config.kafka;
+package com.shop.orderservice.config.kafka;
 
-import com.innowise.external.dto.kafka.CreatePaymentDto;
-import com.innowise.external.dto.kafka.PaymentResult;
+import com.shop.external.dto.kafka.CreatePaymentDto;
+import com.shop.external.dto.kafka.PaymentResult;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;

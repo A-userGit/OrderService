@@ -1,4 +1,4 @@
-package com.innowise.orderservice.config.feign;
+package com.shop.orderservice.config.feign;
 
 import lombok.Getter;
 import lombok.Setter;

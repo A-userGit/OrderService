@@ -1,4 +1,4 @@
-package com.innowise.orderservice.config.telemtry;
+package com.shop.orderservice.config.telemtry;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

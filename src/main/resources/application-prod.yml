@@ -3,5 +3,5 @@ KAFKA_HOST: kafka
 DB_HOST: postgres
 USER_SERVICE_ADDR: user-service
 USER_SERVICE_MOCK_PORT: 80
-AUTH_ISSUER: http://auth-service
-AUTH_JWKS: http://auth-service/oauth2/jwks
+AUTH_ISSUER: https://auth-service
+AUTH_JWKS: https://auth-service/oauth2/jwks

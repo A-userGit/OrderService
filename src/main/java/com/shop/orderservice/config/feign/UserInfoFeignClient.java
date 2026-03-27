@@ -1,6 +1,6 @@
-package com.innowise.orderservice.config.feign;
+package com.shop.orderservice.config.feign;
 
-import com.innowise.orderservice.dto.external.UserDto;
+import com.shop.orderservice.dto.external.UserDto;
 import jakarta.validation.constraints.Email;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;

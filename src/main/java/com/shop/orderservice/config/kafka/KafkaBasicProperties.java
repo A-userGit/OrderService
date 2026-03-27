@@ -1,4 +1,4 @@
-package com.innowise.orderservice.config.kafka;
+package com.shop.orderservice.config.kafka;
 
 import lombok.Getter;
 import lombok.Setter;

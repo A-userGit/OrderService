@@ -1,4 +1,4 @@
-package com.innowise.orderservice.unit.service.impl;
+package com.shop.orderservice.unit.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -6,15 +6,15 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.innowise.orderservice.dto.CreateOrderedItemDto;
-import com.innowise.orderservice.dto.UpdateOrderedItemDto;
-import com.innowise.orderservice.entity.Item;
-import com.innowise.orderservice.entity.Order;
-import com.innowise.orderservice.entity.OrderedItem;
-import com.innowise.orderservice.exception.ObjectNotFoundException;
-import com.innowise.orderservice.mapper.OrderedItemMapper;
-import com.innowise.orderservice.repository.OrderedItemRepository;
-import com.innowise.orderservice.service.impl.OrderedItemServiceImpl;
+import com.shop.orderservice.dto.CreateOrderedItemDto;
+import com.shop.orderservice.dto.UpdateOrderedItemDto;
+import com.shop.orderservice.entity.Item;
+import com.shop.orderservice.entity.Order;
+import com.shop.orderservice.entity.OrderedItem;
+import com.shop.orderservice.exception.ObjectNotFoundException;
+import com.shop.orderservice.mapper.OrderedItemMapper;
+import com.shop.orderservice.repository.OrderedItemRepository;
+import com.shop.orderservice.service.impl.OrderedItemServiceImpl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;

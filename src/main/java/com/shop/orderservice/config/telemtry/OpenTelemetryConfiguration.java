@@ -1,4 +1,4 @@
-package com.innowise.orderservice.config.telemtry;
+package com.shop.orderservice.config.telemtry;
 
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.binder.jvm.ClassLoaderMetrics;

@@ -1,6 +1,6 @@
-package com.innowise.orderservice.validation.annotation;
+package com.shop.orderservice.validation.annotation;
 
-import com.innowise.orderservice.validation.EnumValidator;
+import com.shop.orderservice.validation.EnumValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import java.lang.annotation.Documented;

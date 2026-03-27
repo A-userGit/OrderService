@@ -1,11 +1,11 @@
-package com.innowise.orderservice.mapper;
+package com.shop.orderservice.mapper;
 
-import com.innowise.orderservice.dto.CreateOrderDto;
-import com.innowise.orderservice.dto.CreateOrderRequestDto;
-import com.innowise.orderservice.dto.OrderItemRequestDto;
+import com.shop.orderservice.dto.CreateOrderDto;
+import com.shop.orderservice.dto.CreateOrderRequestDto;
+import com.shop.orderservice.dto.OrderItemRequestDto;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;

@@ -1,7 +1,7 @@
-package com.innowise.orderservice.kafka;
+package com.shop.orderservice.kafka;
 
-import com.innowise.orderservice.config.kafka.KafkaTopicProperties;
-import com.innowise.external.dto.kafka.CreatePaymentDto;
+import com.shop.orderservice.config.kafka.KafkaTopicProperties;
+import com.shop.external.dto.kafka.CreatePaymentDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;

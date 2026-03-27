@@ -1,6 +1,6 @@
-package com.innowise.orderservice.config.feign;
+package com.shop.orderservice.config.feign;
 
-import com.innowise.orderservice.exception.decoder.FeignClientErrorDecoder;
+import com.shop.orderservice.exception.decoder.FeignClientErrorDecoder;
 import feign.codec.ErrorDecoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

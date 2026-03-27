@@ -1,6 +1,6 @@
-package com.innowise.orderservice.integration;
+package com.shop.orderservice.integration;
 
-import com.innowise.orderservice.OrderServiceApplication;
+import com.shop.orderservice.OrderServiceApplication;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import no.nav.security.mock.oauth2.MockOAuth2Server;

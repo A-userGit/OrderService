@@ -1,9 +1,9 @@
-package com.innowise.orderservice.kafka;
+package com.shop.orderservice.kafka;
 
-import com.innowise.orderservice.dto.UpdateOrderDto;
-import com.innowise.external.dto.kafka.PaymentResult;
-import com.innowise.orderservice.enums.PaymentStatus;
-import com.innowise.orderservice.service.OrderService;
+import com.shop.orderservice.dto.UpdateOrderDto;
+import com.shop.external.dto.kafka.PaymentResult;
+import com.shop.orderservice.enums.PaymentStatus;
+import com.shop.orderservice.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;

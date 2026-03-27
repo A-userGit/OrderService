@@ -1,8 +1,8 @@
-package com.innowise.orderservice.mapper;
+package com.shop.orderservice.mapper;
 
-import com.innowise.orderservice.dto.CreateOrderedItemDto;
-import com.innowise.orderservice.dto.OrderedItemDto;
-import com.innowise.orderservice.entity.OrderedItem;
+import com.shop.orderservice.dto.CreateOrderedItemDto;
+import com.shop.orderservice.dto.OrderedItemDto;
+import com.shop.orderservice.entity.OrderedItem;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

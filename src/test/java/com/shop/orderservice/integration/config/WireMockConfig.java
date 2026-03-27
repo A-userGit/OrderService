@@ -1,4 +1,4 @@
-package com.innowise.orderservice.integration.config;
+package com.shop.orderservice.integration.config;
 
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 

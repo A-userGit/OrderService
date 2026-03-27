@@ -1,4 +1,4 @@
-package com.innowise.orderservice.config.security;
+package com.shop.orderservice.config.security;
 
 import lombok.Getter;
 import lombok.Setter;

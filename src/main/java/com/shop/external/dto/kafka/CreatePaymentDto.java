@@ -1,4 +1,4 @@
-package com.innowise.external.dto.kafka;
+package com.shop.external.dto.kafka;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

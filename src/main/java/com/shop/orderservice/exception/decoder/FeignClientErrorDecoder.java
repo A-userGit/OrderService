@@ -1,6 +1,6 @@
-package com.innowise.orderservice.exception.decoder;
+package com.shop.orderservice.exception.decoder;
 
-import com.innowise.orderservice.exception.FeignClientException;
+import com.shop.orderservice.exception.FeignClientException;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import lombok.RequiredArgsConstructor;

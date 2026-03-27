@@ -1,19 +1,17 @@
-package com.innowise.orderservice.service.impl;
+package com.shop.orderservice.service.impl;
 
-import com.innowise.orderservice.dto.CreateItemDto;
-import com.innowise.orderservice.dto.ItemDto;
-import com.innowise.orderservice.entity.Item;
-import com.innowise.orderservice.exception.ObjectAlreadyExistsException;
-import com.innowise.orderservice.exception.ObjectNotFoundException;
-import com.innowise.orderservice.mapper.ItemMapper;
-import com.innowise.orderservice.repository.ItemRepository;
-import com.innowise.orderservice.service.ItemService;
+import com.shop.orderservice.dto.CreateItemDto;
+import com.shop.orderservice.dto.ItemDto;
+import com.shop.orderservice.entity.Item;
+import com.shop.orderservice.exception.ObjectAlreadyExistsException;
+import com.shop.orderservice.exception.ObjectNotFoundException;
+import com.shop.orderservice.mapper.ItemMapper;
+import com.shop.orderservice.repository.ItemRepository;
+import com.shop.orderservice.service.ItemService;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service

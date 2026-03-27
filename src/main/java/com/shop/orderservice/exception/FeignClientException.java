@@ -1,4 +1,4 @@
-package com.innowise.orderservice.exception;
+package com.shop.orderservice.exception;
 
 import feign.Response;
 import lombok.Getter;

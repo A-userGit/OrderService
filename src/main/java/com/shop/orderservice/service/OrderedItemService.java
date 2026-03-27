@@ -1,11 +1,11 @@
-package com.innowise.orderservice.service;
+package com.shop.orderservice.service;
 
-import com.innowise.orderservice.dto.CreateOrderedItemDto;
-import com.innowise.orderservice.dto.OrderedItemDto;
-import com.innowise.orderservice.dto.UpdateOrderedItemDto;
-import com.innowise.orderservice.entity.Item;
-import com.innowise.orderservice.entity.Order;
-import com.innowise.orderservice.entity.OrderedItem;
+import com.shop.orderservice.dto.CreateOrderedItemDto;
+import com.shop.orderservice.dto.OrderedItemDto;
+import com.shop.orderservice.dto.UpdateOrderedItemDto;
+import com.shop.orderservice.entity.Item;
+import com.shop.orderservice.entity.Order;
+import com.shop.orderservice.entity.OrderedItem;
 import java.util.List;
 import java.util.Map;
 

@@ -1,8 +1,8 @@
-package com.innowise.orderservice.exception.handler;
+package com.shop.orderservice.exception.handler;
 
-import com.innowise.orderservice.exception.FeignClientException;
-import com.innowise.orderservice.exception.ObjectAlreadyExistsException;
-import com.innowise.orderservice.exception.ObjectNotFoundException;
+import com.shop.orderservice.exception.FeignClientException;
+import com.shop.orderservice.exception.ObjectAlreadyExistsException;
+import com.shop.orderservice.exception.ObjectNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import java.sql.SQLException;

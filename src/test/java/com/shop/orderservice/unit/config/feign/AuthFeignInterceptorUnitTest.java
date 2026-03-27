@@ -1,10 +1,10 @@
-package com.innowise.orderservice.unit.config.feign;
+package com.shop.orderservice.unit.config.feign;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-import com.innowise.orderservice.config.feign.AuthFeignInterceptor;
+import com.shop.orderservice.config.feign.AuthFeignInterceptor;
 import feign.RequestTemplate;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Collection;

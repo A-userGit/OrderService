@@ -1,9 +1,9 @@
-package com.innowise.orderservice.service;
+package com.shop.orderservice.service;
 
-import com.innowise.orderservice.dto.CreateOrderDto;
-import com.innowise.orderservice.dto.OrderDto;
-import com.innowise.orderservice.dto.UpdateOrderDto;
-import com.innowise.orderservice.entity.Order;
+import com.shop.orderservice.dto.CreateOrderDto;
+import com.shop.orderservice.dto.OrderDto;
+import com.shop.orderservice.dto.UpdateOrderDto;
+import com.shop.orderservice.entity.Order;
 import java.util.List;
 
 public interface OrderService {

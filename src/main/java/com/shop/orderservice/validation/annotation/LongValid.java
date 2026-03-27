@@ -1,6 +1,6 @@
-package com.innowise.orderservice.validation.annotation;
+package com.shop.orderservice.validation.annotation;
 
-import com.innowise.orderservice.validation.LongValidator;
+import com.shop.orderservice.validation.LongValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import java.lang.annotation.Documented;

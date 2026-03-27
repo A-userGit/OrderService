@@ -1,6 +1,6 @@
-package com.innowise.orderservice.entity;
+package com.shop.orderservice.entity;
 
-import com.innowise.orderservice.enums.OrderStatus;
+import com.shop.orderservice.enums.OrderStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

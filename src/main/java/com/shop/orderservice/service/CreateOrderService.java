@@ -1,8 +1,8 @@
-package com.innowise.orderservice.service;
+package com.shop.orderservice.service;
 
-import com.innowise.orderservice.dto.CreateOrderDto;
-import com.innowise.orderservice.dto.CreateOrderedItemDto;
-import com.innowise.orderservice.dto.OrderDto;
+import com.shop.orderservice.dto.CreateOrderDto;
+import com.shop.orderservice.dto.CreateOrderedItemDto;
+import com.shop.orderservice.dto.OrderDto;
 
 public interface CreateOrderService {
 

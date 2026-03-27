@@ -1,6 +1,6 @@
-package com.innowise.orderservice.repository;
+package com.shop.orderservice.repository;
 
-import com.innowise.orderservice.entity.OrderedItem;
+import com.shop.orderservice.entity.OrderedItem;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

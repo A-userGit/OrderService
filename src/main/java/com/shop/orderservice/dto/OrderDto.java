@@ -1,6 +1,6 @@
-package com.innowise.orderservice.dto;
+package com.shop.orderservice.dto;
 
-import com.innowise.orderservice.enums.OrderStatus;
+import com.shop.orderservice.enums.OrderStatus;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

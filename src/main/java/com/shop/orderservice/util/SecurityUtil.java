@@ -1,4 +1,4 @@
-package com.innowise.orderservice.util;
+package com.shop.orderservice.util;
 
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;

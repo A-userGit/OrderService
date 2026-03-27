@@ -1,7 +1,7 @@
-package com.innowise.orderservice.repository;
+package com.shop.orderservice.repository;
 
-import com.innowise.orderservice.entity.Order;
-import com.innowise.orderservice.enums.OrderStatus;
+import com.shop.orderservice.entity.Order;
+import com.shop.orderservice.enums.OrderStatus;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

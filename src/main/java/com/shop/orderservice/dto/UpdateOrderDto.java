@@ -1,7 +1,7 @@
-package com.innowise.orderservice.dto;
+package com.shop.orderservice.dto;
 
-import com.innowise.orderservice.enums.OrderStatus;
-import com.innowise.orderservice.validation.annotation.EnumValid;
+import com.shop.orderservice.enums.OrderStatus;
+import com.shop.orderservice.validation.annotation.EnumValid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

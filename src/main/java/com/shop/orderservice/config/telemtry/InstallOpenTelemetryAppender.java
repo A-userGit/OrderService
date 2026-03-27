@@ -1,4 +1,4 @@
-package com.innowise.orderservice.config.telemtry;
+package com.shop.orderservice.config.telemtry;
 
 import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.instrumentation.logback.appender.v1_0.OpenTelemetryAppender;

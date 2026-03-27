@@ -1,4 +1,4 @@
-package com.innowise.orderservice.unit.service.impl;
+package com.shop.orderservice.unit.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -7,14 +7,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.innowise.orderservice.dto.CreateOrderDto;
-import com.innowise.orderservice.dto.UpdateOrderDto;
-import com.innowise.orderservice.entity.Order;
-import com.innowise.orderservice.enums.OrderStatus;
-import com.innowise.orderservice.exception.ObjectNotFoundException;
-import com.innowise.orderservice.mapper.OrderMapper;
-import com.innowise.orderservice.repository.OrderRepository;
-import com.innowise.orderservice.service.impl.OrderServiceImpl;
+import com.shop.orderservice.dto.CreateOrderDto;
+import com.shop.orderservice.dto.UpdateOrderDto;
+import com.shop.orderservice.entity.Order;
+import com.shop.orderservice.enums.OrderStatus;
+import com.shop.orderservice.exception.ObjectNotFoundException;
+import com.shop.orderservice.mapper.OrderMapper;
+import com.shop.orderservice.repository.OrderRepository;
+import com.shop.orderservice.service.impl.OrderServiceImpl;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;

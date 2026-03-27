@@ -1,9 +1,8 @@
-package com.innowise.orderservice.controller;
+package com.shop.orderservice.controller;
 
-import com.innowise.orderservice.dto.OrderedItemDto;
-import com.innowise.orderservice.dto.UpdateOrderedItemDto;
-import com.innowise.orderservice.service.OrderService;
-import com.innowise.orderservice.service.OrderedItemService;
+import com.shop.orderservice.dto.OrderedItemDto;
+import com.shop.orderservice.dto.UpdateOrderedItemDto;
+import com.shop.orderservice.service.OrderedItemService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import java.util.List;
