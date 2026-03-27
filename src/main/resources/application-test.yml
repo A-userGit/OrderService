@@ -1,0 +1,7 @@
+PORT: 80
+KAFKA_HOST: kafka
+DB_HOST: postgres
+USER_SERVICE_ADDR: user-service:8080
+USER_SERVICE_MOCK_PORT: 8080
+AUTH_ISSUER: http://auth-service
+AUTH_JWKS: http://auth-service/oauth2/jwks
